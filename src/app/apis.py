@@ -1,11 +1,7 @@
 from flask import jsonify, current_app as app
 import psutil
 
-olddata = {}
-olddata["disk_write"] = 0
-olddata["disk_read"] = 0
-olddata["net_sent"] = 0
-olddata["net_recv"] = 0
+olddata = {"disk_write": 0, "disk_read": 0, "net_sent": 0, "net_recv": 0}
 
 
 #
@@ -37,8 +33,7 @@ def api_process():
 #
 @app.route("/api/monitor")
 def api_monitor():
-    apidata = {}
-    apidata["cpu"] = psutil.cpu_percent(interval=0.9)
+    apidata = {"cpu": psutil.cpu_percent(interval=0.9)}
     apidata["mem"] = psutil.virtual_memory().percent
     apidata["disk"] = psutil.disk_usage("/").percent
 
